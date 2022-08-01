@@ -1,8 +1,17 @@
 import '../src/styles/globals.scss'
 import type { AppProps } from 'next/app'
+import {QueryClient, QueryClientProvider} from 'react-query'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+const queryClient = new QueryClient();
+
+function App({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </>
+  )
 }
 
-export default MyApp
+export default App
