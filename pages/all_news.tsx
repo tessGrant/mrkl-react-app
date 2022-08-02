@@ -8,14 +8,16 @@ import { AuthorInfoComponent } from '../src/components/AuthorInfo/authorInfo';
 const  AllNewsComponent: NextPage = () => {
     const {data, isLoading} = useQuery(["topStories"], () => getStories());
     const authors = useQuery(["authors"], () => getAuthors());
-    const [sorted, setSorted] = useState([]);
+    const [sorted, setSorted] = useState(data);
 
-    const sortByScoreAsc = useCallback(() => data?.slice().sort((a: any, b: any) => a.score - b.score), []);
+    const sortByScoreAsc = useCallback((data: any) => {
+        const newSorted = data?.slice().sort((a: any, b: any) => a.score - b.score);
+        setSorted(newSorted);
+    }, []);
     
     useEffect(()=>{
-        const newSorted = sortByScoreAsc();
-        // setSorted(newSorted);
-    },[sorted, data])
+       sortByScoreAsc(data);
+    },[sortByScoreAsc, data])
 
     if(isLoading) {return <div>Loading data...</div>}
     return (
