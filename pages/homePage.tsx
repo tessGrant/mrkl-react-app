@@ -24,13 +24,13 @@ const  AllNewsComponent: NextPage = () => {
     if(isLoading) {return <div>Loading data...</div>}
     return (
         <div>
-            All News Works
+            <h2 className={styles.theTitle}>HackerNews Challenge</h2>
             <div className={styles.homeContainer}>
                 {sorted?.map((item: any, index: any) => 
                 <CardComponent key={index}>
                     <StoryComponent story={item} />
                     {authors.data?.map((user, index) => {
-                        if(user.id === item.by){return <AuthorInfoComponent key={index} user={user} />}
+                        if(user.id === item.by){return <AuthorInfoComponent key={index} user={user} storyURL={item.url} />}
                     })}
                 </CardComponent>)}
             </div>
