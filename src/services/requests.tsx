@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Author, Story, StoryObject} from '../utils/types';
+import {Author, Story} from '../utils/types';
 
 const BaseURL = 'https://hacker-news.firebaseio.com/v0';
 
@@ -22,7 +22,7 @@ export const getStories = async () => {
         const stories = await Promise.all(storyIds.slice(0, 10).map((storyId: any) => getStoryByID(storyId)));
         return stories;
     } catch (error) {
-      console.log('Error while getting list of stories.');
+        throw Error(`Error while getting stories: ${error}`)
     }
   };
 
@@ -42,7 +42,7 @@ export const getAuthors = async () => {
         const stories: any = await getStories();
         const authors = await Promise.all(stories.map((story: any) => getAuthorByStoryID(story.by)));
         return authors;
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        throw Error(`Error while getting authors: ${error}`)
     }
 }

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import  AllNewsComponent from './all_news'
+import  AllNewsComponent from './homePage'
 
 const HomePage: NextPage = () => {
   return (

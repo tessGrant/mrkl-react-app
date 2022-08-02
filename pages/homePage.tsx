@@ -1,9 +1,11 @@
 import type { NextPage } from 'next'
+import styles from '../src/styles/Home.module.scss'
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getAuthors, getStories } from "../src/services/requests";
 import { useQuery } from "react-query"
-import { StoryComponent } from '../src/components/StoryComponent/storyComponent';
-import { AuthorInfoComponent } from '../src/components/AuthorInfo/authorInfo';
+import { CardComponent } from '../src/components/Card/Card';
+import { StoryComponent } from '../src/components/StoryComponent/StoryComponent';
+import { AuthorInfoComponent } from '../src/components/AuthorInfo/AuthorInfo';
 
 const  AllNewsComponent: NextPage = () => {
     const {data, isLoading} = useQuery(["topStories"], () => getStories());
@@ -23,14 +25,14 @@ const  AllNewsComponent: NextPage = () => {
     return (
         <div>
             All News Works
-            <div>
+            <div className={styles.homeContainer}>
                 {sorted?.map((item: any, index: any) => 
-                <div key={index}>
+                <CardComponent key={index}>
                     <StoryComponent story={item} />
                     {authors.data?.map((user, index) => {
                         if(user.id === item.by){return <AuthorInfoComponent key={index} user={user} />}
                     })}
-                </div>)}
+                </CardComponent>)}
             </div>
         </div>
     );
