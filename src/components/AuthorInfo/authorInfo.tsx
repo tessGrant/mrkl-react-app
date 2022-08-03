@@ -1,7 +1,13 @@
+import { Author } from '../../utils/types';
 import styles from './authorInfo.module.scss'
 
+interface IProps {
+    user: Author;
+    storyURL: string;
+}
 
-export const AuthorInfoComponent = (props: any) => {
+export const AuthorInfoComponent = (props: IProps) => {
+    const {user, storyURL} = props;
     return (
         <div className={styles.authorContainer}>
             <div className={styles.authorAvaContainer}>
@@ -9,13 +15,14 @@ export const AuthorInfoComponent = (props: any) => {
             </div>
             <div className={styles.bottomBlock}>
                 <div className={styles.authorCreds}>
-                    <h4>{props.user.id}</h4>
+                    <h4>{user.id}</h4>
                     <p>
                         <img src='./assets/karma_icon.png' />
-                        {props.user.karma}
+                        {user.karma}
                     </p>
                 </div>
-                <a href={props.storyURL}>Read more</a>
+                {storyURL ? <a href={storyURL}>Read more</a> : <span>No Story Link</span>}
+                
             </div>
         </div>
     );

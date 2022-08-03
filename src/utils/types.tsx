@@ -4,6 +4,7 @@ export interface Author {
 }
 
 export interface Story {
+    by: string;
     id: number;
     title: string;
     url: string;

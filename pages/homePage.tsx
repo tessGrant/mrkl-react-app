@@ -6,6 +6,7 @@ import { useQuery } from "react-query"
 import { CardComponent } from '../src/components/Card/Card';
 import { StoryComponent } from '../src/components/StoryComponent/StoryComponent';
 import { AuthorInfoComponent } from '../src/components/AuthorInfo/AuthorInfo';
+import { Story } from '../src/utils/types';
 
 const  AllNewsComponent: NextPage = () => {
     const {data, isLoading} = useQuery(["topStories"], () => getStories());
@@ -26,12 +27,13 @@ const  AllNewsComponent: NextPage = () => {
         <div>
             <h2 className={styles.theTitle}>HackerNews Challenge</h2>
             <div className={styles.homeContainer}>
-                {sorted?.map((item: any, index: any) => 
+                {sorted?.map((item: Story, index: any) => 
                 <CardComponent key={index}>
-                    <StoryComponent story={item} />
+                    <StoryComponent story={item}>
                     {authors.data?.map((user, index) => {
                         if(user.id === item.by){return <AuthorInfoComponent key={index} user={user} storyURL={item.url} />}
                     })}
+                    </StoryComponent>
                 </CardComponent>)}
             </div>
         </div>
